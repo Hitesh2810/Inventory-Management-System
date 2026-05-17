@@ -227,23 +227,6 @@ Stores generated reports.
 
 ---
 
-# 🔗 Relationships Summary
-
-| Relationship | Type |
-|-------------|------|
-| Users → Orders | 1 : M |
-| Orders → Order_Items | 1 : M |
-| Products → Order_Items | 1 : M |
-| Categories → Products | 1 : M |
-| Suppliers → Products | 1 : M |
-| Products → Inventory | 1 : 1 |
-| Products → Sales | 1 : M |
-| Users → Reports | 1 : M |
-| Users → Activity_Logs | 1 : M |
-| Users → OTP_Verification | 1 : M |
-
----
-
 # 🔐 Authentication Features
 
 - User registration
