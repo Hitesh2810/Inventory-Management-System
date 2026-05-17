@@ -1,227 +1,251 @@
-# 🚀 Inventory Management System
+# Inventory Management System
 
-A premium futuristic **Inventory Management System** frontend built using the **Next.js App Router**.  
-Designed as a modern SaaS-style platform for managing inventory, products, suppliers, orders, analytics, reports, users, and settings.
+A futuristic Inventory Management System frontend built with the Next.js App Router and prepared for a Django REST Framework backend with a MySQL database.
 
-The frontend is fully prepared for 🔗 **Django REST Framework backend integration** with 🗄️ **MySQL database connectivity**.
+This README documents the frontend work completed and the MySQL database schema shown in the provided IMS schema image.
 
----
+## Project Overview
 
-# ✨ Features
+The system is designed for managing:
 
-- 🌌 Futuristic Dark SaaS UI
-- 🪟 Glassmorphism Panels
-- ⚡ Neon Glow Effects
-- 📊 Interactive Analytics Dashboard
-- 📦 Inventory Management
-- 🛒 Order Tracking
-- 💰 Sales Monitoring
-- 👥 User Management
-- 📈 Predictive Analytics
-- 🔐 Authentication System
-- 📑 Reports Dashboard
-- 🧠 Backend Integration Ready
-- 📱 Fully Responsive Design
-
----
-
-# 🛠️ Tech Stack
-
-| Technology | Usage |
-|------------|-------|
-| ⚛️ Next.js | Frontend Framework |
-| 🟨 JavaScript JSX | Application Logic |
-| 🎨 Tailwind CSS | Styling |
-| 🎞️ Framer Motion | Animations |
-| 🔗 Axios | API Integration |
-| 🧠 Context API | Authentication State |
-| 🗄️ MySQL | Database |
-| 🐍 Django REST Framework | Backend API |
-
----
-
-# 🎨 Design System
-
-The UI follows a premium futuristic enterprise design language.
-
-### 🌟 Visual Features
-
-- 🌑 Dark futuristic theme
-- 💎 Glassmorphism surfaces
-- 🔵 Neon blue and cyan gradients
-- 🟣 Purple glow effects
-- ✨ Animated borders
-- 🌫️ Blur and glow overlays
-- 🌌 Floating particle backgrounds
-- 📊 Animated dashboard widgets
-- 📈 Interactive charts
-- 🧊 Premium SaaS cards
-- 🧠 3D inventory visualizations
-
----
-
-# 📄 Completed Pages
-
-## 🔐 Authentication Pages
-
-- Login Page
-- Signup Page
-- OTP Verification Page
-
-## 📊 Dashboard & Management
-
-- Dashboard
+- Users
+- OTP verification
+- Activity logs
+- Categories
+- Suppliers
 - Products
 - Inventory
-- Suppliers
-- Categories
 - Orders
+- Order items
 - Sales
 - Reports
-- Users
-- Analytics
-- Settings
-- Activity Logs
 
-## ⚙️ System Pages
+The frontend currently uses realistic mock data, but the structure is ready for REST API integration.
 
-- Landing Page
-- Loading Page
-- Error Page
-- Not Found Page
+## Tech Stack
 
----
+| Area | Technology |
+| --- | --- |
+| Frontend framework | Next.js App Router |
+| Language | JavaScript JSX |
+| Styling | Tailwind CSS |
+| Animation | Framer Motion, GSAP |
+| 3D visuals | Three.js, React Three Fiber, Drei |
+| Icons | Lucide React |
+| Charts | Recharts |
+| Forms | React Hook Form |
+| API client | Axios |
+| Auth state | Context API |
+| Planned backend | Django REST Framework |
+| Planned database | MySQL |
 
-# 📦 Dashboard Features
+## Frontend Features Completed
 
-- 📈 Revenue Overview
-- 📊 KPI Analytics Cards
-- 📦 Inventory Analytics
-- 💰 Sales Analytics
-- 🛒 Orders Overview
-- 🥧 Category Pie Chart
-- 🧠 3D Inventory Visualization
+- Futuristic dark SaaS interface
+- Glassmorphism cards and panels
+- Neon blue, cyan, purple, emerald, and black gradient styling
+- Animated navigation and dashboard layouts
+- Responsive desktop, tablet, and mobile layouts
+- Landing page with hero section and 3D inventory scene
+- Login, signup, and OTP verification pages
+- Dashboard with KPI cards, charts, heatmap, activity feed, and stock alerts
+- Products page with search, filters, product cards, table, modal, and form
+- Inventory page with stock indicators, low stock alerts, warehouse zone cards, and 3D scene
+- Orders page with shipment timeline, status badges, payment status, and progress tracking
+- Suppliers page with supplier cards, contact actions, and performance analytics
+- Categories page with category analytics
+- Sales page with revenue charts, sales trends, and top products
+- Reports page with report cards and export actions
+- Users page with role badges, verification status, and user table
+- Analytics page with forecasting-style charts and heatmaps
+- Settings page with profile, security, theme, and notification controls
+- Activity logs page with timeline and audit cards
+- API service layer prepared for backend integration
+- Auth context and protected route wrapper
 
----
+## MySQL Database Schema
 
-# 📦 Products Module
+The schema contains 11 core tables.
 
-- Product Grid
-- Product Table
-- Search Functionality
-- Category Filters
-- Status Badges
-- Stock Indicators
-- Add Product Modal
-- Product Form Validation
-- Delete Product Interaction
+### 1. Users
 
----
+Stores system users such as admins, managers, and customers.
 
-# 🏬 Inventory Module
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| user_id | INT | PK | Primary user ID |
+| name | VARCHAR(100) |  | User full name |
+| email | VARCHAR(100) | UNIQUE | Unique email address |
+| password | VARCHAR(255) |  | Hashed password |
+| phone | VARCHAR(15) |  | Phone number |
+| role | ENUM('admin','manager','customer') |  | User role |
+| is_verified | BOOLEAN |  | Default 0 |
+| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
 
-- 📦 Stock Management
-- ⚠️ Low Stock Alerts
-- 🏭 Warehouse Utilization
-- 📊 Live Stock Indicators
-- 🌌 Animated Inventory Scene
+### 2. OTP Verification
 
----
+Stores OTP codes for user verification.
 
-# 🛒 Orders Module
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| otp_id | INT | PK | Primary OTP ID |
+| user_id | INT | FK | References users.user_id |
+| otp_code | VARCHAR(10) |  | OTP code |
+| expires_at | DATETIME |  | Expiration time |
+| is_used | BOOLEAN |  | Default 0 |
 
-- Order Summary Cards
-- Shipment Timeline
-- Payment Indicators
-- Progress Tracking
-- Order Status Badges
+### 3. Activity Logs
 
----
+Stores system activity performed by users.
 
-# 🚚 Suppliers Module
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| log_id | INT | PK | Primary log ID |
+| user_id | INT | FK | References users.user_id |
+| action | VARCHAR(255) |  | User or system action |
+| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
 
-- Supplier Profiles
-- Supplier Scores
-- Delivery Indicators
-- Performance Charts
-- Contact Information UI
+### 4. Categories
 
----
+Stores product categories.
 
-# 💰 Sales Module
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| category_id | INT | PK | Primary category ID |
+| category_name | VARCHAR(100) |  | Category name |
+| description | TEXT |  | Category description |
+| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
 
-- Revenue Charts
-- Sales Trends
-- Growth Analytics
-- Top Selling Products
-- Revenue Statistics
+### 5. Suppliers
 
----
+Stores supplier profile information.
 
-# 📑 Reports Module
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| supplier_id | INT | PK | Primary supplier ID |
+| supplier_name | VARCHAR(100) |  | Supplier name |
+| email | VARCHAR(100) |  | Supplier email |
+| phone | VARCHAR(15) |  | Supplier phone |
+| address | TEXT |  | Supplier address |
+| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
 
-- Reports Dashboard
-- Revenue Reports
-- Export Buttons
-- Inventory Reports
-- Supplier Reports
-- Analytics Reports
+### 6. Products
 
----
+Stores product master data.
 
-# 👥 Users Module
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| product_id | INT | PK | Primary product ID |
+| product_name | VARCHAR(150) |  | Product name |
+| description | TEXT |  | Product description |
+| product_image | VARCHAR(255) |  | Product image path or URL |
+| barcode | VARCHAR(100) | UNIQUE | Unique barcode |
+| price | DECIMAL(10,2) |  | Product price |
+| stock_quantity | INT |  | Default 0 |
+| category_id | INT | FK | References categories.category_id |
+| supplier_id | INT | FK | References suppliers.supplier_id |
+| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
+| updated_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
 
-- User Management Table
-- Role Badges
-- Verification Indicators
-- Access Analytics
-- User Profiles
+### 7. Inventory
 
----
+Stores inventory stock movement values for each product.
 
-# 📈 Analytics Module
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| inventory_id | INT | PK | Primary inventory ID |
+| product_id | INT | FK, UNIQUE | References products.product_id |
+| stock_in | INT |  | Default 0 |
+| stock_out | INT |  | Default 0 |
+| low_stock_threshold | INT |  | Default 0 |
+| updated_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
 
-- Predictive Analytics
-- Demand Forecast Charts
-- Warehouse Heatmaps
-- Sales Forecasting
-- Inventory Throughput Analysis
+### 8. Orders
 
----
+Stores customer order records.
 
-# ⚙️ Settings Module
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| order_id | INT | PK | Primary order ID |
+| user_id | INT | FK | References users.user_id |
+| total_amount | DECIMAL(10,2) |  | Total order amount |
+| order_status | ENUM('pending','confirmed','shipped','delivered','cancelled') |  | Order status |
+| payment_status | ENUM('pending','paid','failed','refunded') |  | Payment status |
+| payment_method | VARCHAR(50) |  | Payment method |
+| shipping_address | TEXT |  | Shipping address |
+| order_date | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
 
-- Profile Settings
-- Security Settings
-- Notification Controls
-- Theme Customization
-- Preference Management
+### 9. Order Items
 
----
+Stores products included in each order.
 
-# 📝 Activity Logs
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| order_item_id | INT | PK | Primary order item ID |
+| order_id | INT | FK | References orders.order_id |
+| product_id | INT | FK | References products.product_id |
+| quantity | INT |  | Ordered quantity |
+| price | DECIMAL(10,2) |  | Product price at order time |
 
-- Timeline Interface
-- System Audit Logs
-- Activity Feed
-- Filter Actions
-- Event Tracking
+### 10. Sales
 
----
+Stores product sales records.
 
-# 🔗 Backend Connectivity
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| sale_id | INT | PK | Primary sale ID |
+| product_id | INT | FK | References products.product_id |
+| quantity_sold | INT |  | Quantity sold |
+| total_price | DECIMAL(10,2) |  | Total sale price |
+| sale_date | DATE |  | Sale date |
 
-The frontend is fully prepared for backend integration using:
+### 11. Reports
 
-- 🐍 Django REST Framework
-- 🗄️ MySQL Database
-- 🔗 Axios API Services
-- 🔐 JWT Authentication
-- 🌐 REST API Endpoints
+Stores generated report metadata.
 
----
+| Column | Type | Key | Notes |
+| --- | --- | --- | --- |
+| report_id | INT | PK | Primary report ID |
+| report_name | VARCHAR(150) |  | Report name |
+| report_type | ENUM('sales','inventory','stock','orders') |  | Report category |
+| generated_by | INT | FK | References users.user_id |
+| generated_date | DATETIME |  | Report generation date |
 
-# 📁 API Services
+## Relationship Summary
+
+| Relationship | Cardinality |
+| --- | --- |
+| Users to Orders | 1 to many |
+| Users to Reports | 1 to many |
+| Users to Activity Logs | 1 to many |
+| Users to OTP Verification | 1 to many |
+| Categories to Products | 1 to many |
+| Suppliers to Products | 1 to many |
+| Products to Inventory | 1 to 1 |
+| Products to Sales | 1 to many |
+| Products to Order Items | 1 to many |
+| Orders to Order Items | 1 to many |
+
+## Backend Integration Plan
+
+The frontend service layer is ready to connect with Django REST Framework endpoints for this database schema.
+
+Planned endpoint groups:
+
+- `/api/auth/`
+- `/api/users/`
+- `/api/otp-verification/`
+- `/api/activity-logs/`
+- `/api/categories/`
+- `/api/suppliers/`
+- `/api/products/`
+- `/api/inventory/`
+- `/api/orders/`
+- `/api/order-items/`
+- `/api/sales/`
+- `/api/reports/`
+
+## API Service Files
 
 ```txt
 services/
@@ -233,22 +257,20 @@ services/
 └── reportService.js
 ```
 
----
+Included API preparation:
 
-# 🔐 Authentication System
+- Axios base instance
+- API base URL from environment variables
+- Token injection through request interceptors
+- Unauthorized response handling
+- Mock fallback data
+- Auth service methods
+- Product service methods
+- Inventory overview service
+- Sales overview service
+- Reports service
 
-Authentication is implemented using React Context API.
-
-### Included Features
-
-- ✅ Login
-- ✅ Signup
-- ✅ Logout
-- ✅ Protected Routes
-- ✅ Token Storage
-- ✅ Mock Authentication Flow
-
-### Authentication Files
+## Authentication Files
 
 ```txt
 context/
@@ -258,12 +280,29 @@ components/layouts/
 └── ProtectedRoute.jsx
 ```
 
----
+Authentication includes:
 
-# 📂 Project Structure
+- Login
+- Signup
+- Logout
+- Mock user session
+- Token storage in localStorage
+- Protected route wrapper
+
+## Frontend Project Structure
 
 ```txt
 app/
+├── layout.jsx
+├── page.jsx
+├── loading.jsx
+├── error.jsx
+├── not-found.jsx
+├── globals.css
+├── (auth)/
+│   ├── login/
+│   ├── signup/
+│   └── otp-verification/
 ├── dashboard/
 ├── products/
 ├── inventory/
@@ -278,28 +317,43 @@ app/
 └── activity-logs/
 
 components/
+├── animations/
+├── cards/
+├── charts/
+├── dashboard/
+├── forms/
+├── layouts/
+├── modals/
+├── navbar/
+├── sidebar/
+├── tables/
+└── ui/
+
 context/
+data/
 hooks/
 services/
 utils/
 ```
 
----
-
-# 🌐 Environment Variables
+## Environment Variables
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
 NEXT_PUBLIC_APP_NAME=Inventory Management System
 ```
 
----
+## Styling
 
-# 🎨 Styling
+Tailwind CSS powers the UI.
 
-Tailwind CSS powers the entire UI system.
+Main styling file:
 
-### Custom Utility Classes
+```txt
+app/globals.css
+```
+
+Custom global utility classes:
 
 - `glass`
 - `neon-border`
@@ -307,59 +361,30 @@ Tailwind CSS powers the entire UI system.
 - `text-gradient`
 - `scrollbar-thin`
 
-Global styles are defined in:
+## Run The Project
 
-```txt
-app/globals.css
-```
-
----
-
-# ▶️ Run The Project
-
-## 📥 Install Dependencies
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-## 🚀 Start Development Server
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-## 🏗️ Build Production
+Build for production:
 
 ```bash
 npm run build
 ```
 
----
+## Notes
 
-# 📌 Notes
-
-- 🧪 Mock data is currently used
-- 🔗 Backend API integration is ready
-- 🐍 Django backend connectivity prepared
-- 🗄️ MySQL integration planned through REST APIs
-- ⚛️ Built completely using JavaScript and Next.js App Router
-
----
-
-# 🌟 Future Improvements
-
-- 🔔 Real-time Notifications
-- 📡 WebSocket Integration
-- 🤖 AI-based Inventory Forecasting
-- ☁️ Cloud Deployment
-- 📱 Mobile Companion App
-- 🌍 Multi-language Support
-
----
-
-# 👨‍💻 Developer Ready
-
-This project is structured for scalable enterprise-level development and smooth backend integration.
-
-Built for modern futuristic SaaS experiences 🚀
+- The frontend currently uses mock data.
+- The schema above is based on the provided MySQL IMS database schema image.
+- The frontend is ready to connect to Django REST Framework APIs.
+- MySQL will be used through backend API endpoints, not directly from the frontend.
+- The project is written in JavaScript JSX, not TypeScript.
