@@ -280,22 +280,6 @@ This database schema is fully prepared for:
 
 ---
 
-# ▶️ Database Setup
-
-## Create Database
-
-```sql
-CREATE DATABASE inventory_management_system;
-```
-
-## Use Database
-
-```sql
-USE inventory_management_system;
-```
-
----
-
 # 📌 Notes
 
 - Designed using normalized relational database principles
