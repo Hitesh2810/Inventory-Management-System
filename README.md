@@ -1,390 +1,327 @@
-# Inventory Management System
+# 📦 Inventory Management System
 
-A futuristic Inventory Management System frontend built with the Next.js App Router and prepared for a Django REST Framework backend with a MySQL database.
+A complete **Inventory Management System Database Schema** designed using **MySQL** for managing products, inventory, suppliers, orders, sales, reports, users, OTP verification, and activity logs.
 
-This README documents the frontend work completed and the MySQL database schema shown in the provided IMS schema image.
+This schema is structured for scalable enterprise-level inventory and warehouse management applications.
 
-## Project Overview
+---
 
-The system is designed for managing:
+# 🛠️ Technologies Used
 
-- Users
-- OTP verification
-- Activity logs
-- Categories
-- Suppliers
-- Products
-- Inventory
-- Orders
-- Order items
-- Sales
-- Reports
+- 🗄️ MySQL Database
+- 🐍 Django REST Framework (Backend Ready)
+- ⚛️ Next.js Frontend Integration Ready
+- 🔗 REST API Architecture
 
-The frontend currently uses realistic mock data, but the structure is ready for REST API integration.
+---
 
-## Tech Stack
+# 📊 Database Overview
 
-| Area | Technology |
-| --- | --- |
-| Frontend framework | Next.js App Router |
-| Language | JavaScript JSX |
-| Styling | Tailwind CSS |
-| Animation | Framer Motion, GSAP |
-| 3D visuals | Three.js, React Three Fiber, Drei |
-| Icons | Lucide React |
-| Charts | Recharts |
-| Forms | React Hook Form |
-| API client | Axios |
-| Auth state | Context API |
-| Planned backend | Django REST Framework |
-| Planned database | MySQL |
+The system contains the following core modules:
 
-## Frontend Features Completed
+| Module | Description |
+|--------|-------------|
+| 👤 Users | Manage system users and authentication |
+| 🔐 OTP Verification | OTP-based verification system |
+| 📝 Activity Logs | Track user actions and system activities |
+| 📂 Categories | Product category management |
+| 🚚 Suppliers | Supplier information management |
+| 📦 Products | Product catalog management |
+| 🏬 Inventory | Stock tracking and inventory monitoring |
+| 🛒 Orders | Customer order management |
+| 📄 Order Items | Individual products within orders |
+| 💰 Sales | Sales transaction tracking |
+| 📑 Reports | Generated analytics and reports |
 
-- Futuristic dark SaaS interface
-- Glassmorphism cards and panels
-- Neon blue, cyan, purple, emerald, and black gradient styling
-- Animated navigation and dashboard layouts
-- Responsive desktop, tablet, and mobile layouts
-- Landing page with hero section and 3D inventory scene
-- Login, signup, and OTP verification pages
-- Dashboard with KPI cards, charts, heatmap, activity feed, and stock alerts
-- Products page with search, filters, product cards, table, modal, and form
-- Inventory page with stock indicators, low stock alerts, warehouse zone cards, and 3D scene
-- Orders page with shipment timeline, status badges, payment status, and progress tracking
-- Suppliers page with supplier cards, contact actions, and performance analytics
-- Categories page with category analytics
-- Sales page with revenue charts, sales trends, and top products
-- Reports page with report cards and export actions
-- Users page with role badges, verification status, and user table
-- Analytics page with forecasting-style charts and heatmaps
-- Settings page with profile, security, theme, and notification controls
-- Activity logs page with timeline and audit cards
-- API service layer prepared for backend integration
-- Auth context and protected route wrapper
+---
 
-## MySQL Database Schema
+# 🧩 Database Tables
 
-The schema contains 11 core tables.
+---
 
-### 1. Users
+# 👤 USERS
 
-Stores system users such as admins, managers, and customers.
+Stores all system user details.
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| user_id | INT | PK | Primary user ID |
-| name | VARCHAR(100) |  | User full name |
-| email | VARCHAR(100) | UNIQUE | Unique email address |
-| password | VARCHAR(255) |  | Hashed password |
-| phone | VARCHAR(15) |  | Phone number |
-| role | ENUM('admin','manager','customer') |  | User role |
-| is_verified | BOOLEAN |  | Default 0 |
-| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
+## Columns
 
-### 2. OTP Verification
+| Column | Type | Description |
+|-------|------|-------------|
+| `user_id` | INT | Primary Key |
+| `name` | VARCHAR(100) | User full name |
+| `email` | VARCHAR(100) | Unique email |
+| `password` | VARCHAR(255) | Encrypted password |
+| `phone` | VARCHAR(15) | Contact number |
+| `role` | ENUM | admin / manager / customer |
+| `is_verified` | BOOLEAN | Verification status |
+| `created_at` | TIMESTAMP | Account creation date |
 
-Stores OTP codes for user verification.
+---
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| otp_id | INT | PK | Primary OTP ID |
-| user_id | INT | FK | References users.user_id |
-| otp_code | VARCHAR(10) |  | OTP code |
-| expires_at | DATETIME |  | Expiration time |
-| is_used | BOOLEAN |  | Default 0 |
+# 🔐 OTP_VERIFICATION
 
-### 3. Activity Logs
+Handles OTP verification for users.
 
-Stores system activity performed by users.
+## Columns
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| log_id | INT | PK | Primary log ID |
-| user_id | INT | FK | References users.user_id |
-| action | VARCHAR(255) |  | User or system action |
-| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
+| Column | Type |
+|-------|------|
+| `otp_id` | INT |
+| `user_id` | INT |
+| `otp_code` | VARCHAR(10) |
+| `expires_at` | DATETIME |
+| `is_used` | BOOLEAN |
 
-### 4. Categories
+---
+
+# 📝 ACTIVITY_LOGS
+
+Tracks user activities inside the system.
+
+## Columns
+
+| Column | Type |
+|-------|------|
+| `log_id` | INT |
+| `user_id` | INT |
+| `action` | VARCHAR(255) |
+| `created_at` | TIMESTAMP |
+
+---
+
+# 📂 CATEGORIES
 
 Stores product categories.
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| category_id | INT | PK | Primary category ID |
-| category_name | VARCHAR(100) |  | Category name |
-| description | TEXT |  | Category description |
-| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
+## Columns
 
-### 5. Suppliers
+| Column | Type |
+|-------|------|
+| `category_id` | INT |
+| `category_name` | VARCHAR(100) |
+| `description` | TEXT |
+| `created_at` | TIMESTAMP |
 
-Stores supplier profile information.
+---
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| supplier_id | INT | PK | Primary supplier ID |
-| supplier_name | VARCHAR(100) |  | Supplier name |
-| email | VARCHAR(100) |  | Supplier email |
-| phone | VARCHAR(15) |  | Supplier phone |
-| address | TEXT |  | Supplier address |
-| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
+# 🚚 SUPPLIERS
 
-### 6. Products
+Stores supplier information.
 
-Stores product master data.
+## Columns
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| product_id | INT | PK | Primary product ID |
-| product_name | VARCHAR(150) |  | Product name |
-| description | TEXT |  | Product description |
-| product_image | VARCHAR(255) |  | Product image path or URL |
-| barcode | VARCHAR(100) | UNIQUE | Unique barcode |
-| price | DECIMAL(10,2) |  | Product price |
-| stock_quantity | INT |  | Default 0 |
-| category_id | INT | FK | References categories.category_id |
-| supplier_id | INT | FK | References suppliers.supplier_id |
-| created_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
-| updated_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
+| Column | Type |
+|-------|------|
+| `supplier_id` | INT |
+| `supplier_name` | VARCHAR(100) |
+| `email` | VARCHAR(100) |
+| `phone` | VARCHAR(15) |
+| `address` | TEXT |
+| `created_at` | TIMESTAMP |
 
-### 7. Inventory
+---
 
-Stores inventory stock movement values for each product.
+# 📦 PRODUCTS
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| inventory_id | INT | PK | Primary inventory ID |
-| product_id | INT | FK, UNIQUE | References products.product_id |
-| stock_in | INT |  | Default 0 |
-| stock_out | INT |  | Default 0 |
-| low_stock_threshold | INT |  | Default 0 |
-| updated_at | TIMESTAMP |  | Default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
+Stores all product information.
 
-### 8. Orders
+## Columns
 
-Stores customer order records.
+| Column | Type |
+|-------|------|
+| `product_id` | INT |
+| `product_name` | VARCHAR(150) |
+| `description` | TEXT |
+| `product_image` | VARCHAR(255) |
+| `barcode` | VARCHAR(100) |
+| `price` | DECIMAL(10,2) |
+| `stock_quantity` | INT |
+| `category_id` | INT |
+| `supplier_id` | INT |
+| `created_at` | TIMESTAMP |
+| `updated_at` | TIMESTAMP |
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| order_id | INT | PK | Primary order ID |
-| user_id | INT | FK | References users.user_id |
-| total_amount | DECIMAL(10,2) |  | Total order amount |
-| order_status | ENUM('pending','confirmed','shipped','delivered','cancelled') |  | Order status |
-| payment_status | ENUM('pending','paid','failed','refunded') |  | Payment status |
-| payment_method | VARCHAR(50) |  | Payment method |
-| shipping_address | TEXT |  | Shipping address |
-| order_date | TIMESTAMP |  | Default CURRENT_TIMESTAMP |
+---
 
-### 9. Order Items
+# 🏬 INVENTORY
 
-Stores products included in each order.
+Tracks inventory movement and stock levels.
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| order_item_id | INT | PK | Primary order item ID |
-| order_id | INT | FK | References orders.order_id |
-| product_id | INT | FK | References products.product_id |
-| quantity | INT |  | Ordered quantity |
-| price | DECIMAL(10,2) |  | Product price at order time |
+## Columns
 
-### 10. Sales
+| Column | Type |
+|-------|------|
+| `inventory_id` | INT |
+| `product_id` | INT |
+| `stock_in` | INT |
+| `stock_out` | INT |
+| `low_stock_threshold` | INT |
+| `updated_at` | TIMESTAMP |
 
-Stores product sales records.
+---
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| sale_id | INT | PK | Primary sale ID |
-| product_id | INT | FK | References products.product_id |
-| quantity_sold | INT |  | Quantity sold |
-| total_price | DECIMAL(10,2) |  | Total sale price |
-| sale_date | DATE |  | Sale date |
+# 🛒 ORDERS
 
-### 11. Reports
+Stores customer order details.
 
-Stores generated report metadata.
+## Columns
 
-| Column | Type | Key | Notes |
-| --- | --- | --- | --- |
-| report_id | INT | PK | Primary report ID |
-| report_name | VARCHAR(150) |  | Report name |
-| report_type | ENUM('sales','inventory','stock','orders') |  | Report category |
-| generated_by | INT | FK | References users.user_id |
-| generated_date | DATETIME |  | Report generation date |
+| Column | Type |
+|-------|------|
+| `order_id` | INT |
+| `user_id` | INT |
+| `total_amount` | DECIMAL(10,2) |
+| `order_status` | ENUM |
+| `payment_status` | ENUM |
+| `payment_method` | VARCHAR(50) |
+| `shipping_address` | TEXT |
+| `order_date` | TIMESTAMP |
 
-## Relationship Summary
+---
 
-| Relationship | Cardinality |
-| --- | --- |
-| Users to Orders | 1 to many |
-| Users to Reports | 1 to many |
-| Users to Activity Logs | 1 to many |
-| Users to OTP Verification | 1 to many |
-| Categories to Products | 1 to many |
-| Suppliers to Products | 1 to many |
-| Products to Inventory | 1 to 1 |
-| Products to Sales | 1 to many |
-| Products to Order Items | 1 to many |
-| Orders to Order Items | 1 to many |
+# 📄 ORDER_ITEMS
 
-## Backend Integration Plan
+Stores products inside each order.
 
-The frontend service layer is ready to connect with Django REST Framework endpoints for this database schema.
+## Columns
 
-Planned endpoint groups:
+| Column | Type |
+|-------|------|
+| `order_item_id` | INT |
+| `order_id` | INT |
+| `product_id` | INT |
+| `quantity` | INT |
+| `price` | DECIMAL(10,2) |
 
-- `/api/auth/`
-- `/api/users/`
-- `/api/otp-verification/`
-- `/api/activity-logs/`
-- `/api/categories/`
-- `/api/suppliers/`
-- `/api/products/`
-- `/api/inventory/`
-- `/api/orders/`
-- `/api/order-items/`
-- `/api/sales/`
-- `/api/reports/`
+---
 
-## API Service Files
+# 💰 SALES
 
-```txt
-services/
-├── api.js
-├── authService.js
-├── productService.js
-├── inventoryService.js
-├── salesService.js
-└── reportService.js
+Tracks sales transactions.
+
+## Columns
+
+| Column | Type |
+|-------|------|
+| `sale_id` | INT |
+| `product_id` | INT |
+| `quantity_sold` | INT |
+| `total_price` | DECIMAL(10,2) |
+| `sale_date` | DATE |
+
+---
+
+# 📑 REPORTS
+
+Stores generated reports.
+
+## Columns
+
+| Column | Type |
+|-------|------|
+| `report_id` | INT |
+| `report_name` | VARCHAR(150) |
+| `report_type` | ENUM |
+| `generated_by` | INT |
+| `generated_date` | DATETIME |
+
+---
+
+# 🔗 Relationships Summary
+
+| Relationship | Type |
+|-------------|------|
+| Users → Orders | 1 : M |
+| Orders → Order_Items | 1 : M |
+| Products → Order_Items | 1 : M |
+| Categories → Products | 1 : M |
+| Suppliers → Products | 1 : M |
+| Products → Inventory | 1 : 1 |
+| Products → Sales | 1 : M |
+| Users → Reports | 1 : M |
+| Users → Activity_Logs | 1 : M |
+| Users → OTP_Verification | 1 : M |
+
+---
+
+# 🔐 Authentication Features
+
+- User registration
+- Login system
+- OTP verification
+- Role-based access
+- Activity tracking
+
+---
+
+# 📦 Inventory Features
+
+- Product stock tracking
+- Low stock alerts
+- Supplier management
+- Inventory movement tracking
+- Sales monitoring
+
+---
+
+# 📈 Reporting Features
+
+- Sales reports
+- Inventory reports
+- Order reports
+- Stock reports
+- User activity reports
+
+---
+
+# 🚀 Future Enhancements
+
+- 📡 Real-time inventory updates
+- 🔔 Notification system
+- 🤖 AI demand forecasting
+- ☁️ Cloud deployment
+- 📱 Mobile app integration
+- 📊 Advanced analytics dashboard
+
+---
+
+# ⚙️ Backend Integration Ready
+
+This database schema is fully prepared for:
+
+- 🐍 Django REST Framework APIs
+- 🔗 RESTful services
+- ⚛️ Next.js frontend integration
+- 🔐 JWT authentication
+- 🗄️ MySQL relational database operations
+
+---
+
+# ▶️ Database Setup
+
+## Create Database
+
+```sql
+CREATE DATABASE inventory_management_system;
 ```
 
-Included API preparation:
+## Use Database
 
-- Axios base instance
-- API base URL from environment variables
-- Token injection through request interceptors
-- Unauthorized response handling
-- Mock fallback data
-- Auth service methods
-- Product service methods
-- Inventory overview service
-- Sales overview service
-- Reports service
-
-## Authentication Files
-
-```txt
-context/
-└── AuthContext.jsx
-
-components/layouts/
-└── ProtectedRoute.jsx
+```sql
+USE inventory_management_system;
 ```
 
-Authentication includes:
+---
 
-- Login
-- Signup
-- Logout
-- Mock user session
-- Token storage in localStorage
-- Protected route wrapper
+# 📌 Notes
 
-## Frontend Project Structure
+- Designed using normalized relational database principles
+- Supports scalable enterprise applications
+- Optimized for inventory and warehouse systems
+- Suitable for full-stack MERN/Next.js + Django projects
 
-```txt
-app/
-├── layout.jsx
-├── page.jsx
-├── loading.jsx
-├── error.jsx
-├── not-found.jsx
-├── globals.css
-├── (auth)/
-│   ├── login/
-│   ├── signup/
-│   └── otp-verification/
-├── dashboard/
-├── products/
-├── inventory/
-├── suppliers/
-├── categories/
-├── orders/
-├── sales/
-├── reports/
-├── users/
-├── analytics/
-├── settings/
-└── activity-logs/
+---
 
-components/
-├── animations/
-├── cards/
-├── charts/
-├── dashboard/
-├── forms/
-├── layouts/
-├── modals/
-├── navbar/
-├── sidebar/
-├── tables/
-└── ui/
+# 👨‍💻 Project Type
 
-context/
-data/
-hooks/
-services/
-utils/
-```
-
-## Environment Variables
-
-```env
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
-NEXT_PUBLIC_APP_NAME=Inventory Management System
-```
-
-## Styling
-
-Tailwind CSS powers the UI.
-
-Main styling file:
-
-```txt
-app/globals.css
-```
-
-Custom global utility classes:
-
-- `glass`
-- `neon-border`
-- `grid-surface`
-- `text-gradient`
-- `scrollbar-thin`
-
-## Run The Project
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Build for production:
-
-```bash
-npm run build
-```
-
-## Notes
-
-- The frontend currently uses mock data.
-- The schema above is based on the provided MySQL IMS database schema image.
-- The frontend is ready to connect to Django REST Framework APIs.
-- MySQL will be used through backend API endpoints, not directly from the frontend.
-- The project is written in JavaScript JSX, not TypeScript.
+Enterprise-Level Inventory Management System Database Schema 🚀
